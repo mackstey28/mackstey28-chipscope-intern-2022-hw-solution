@@ -8,47 +8,45 @@ print(dirs_and_files)
 
 tree = Tree("Regular tree")
 
-def is_file(n) -> bool:
-	if type(n) == str:
-		return False
-	if (n.endswith(".py") or n.endswith(".txt") or n.endswith(".csv")):
-		return True
-	return False
+tmp_tree = Tree("")
 
-temp_tree = Tree("")
-temp_tree2 = Tree("")
+def create_tree(curr_tree, dir) -> None:
+	if len(dir) is 0:
+		curr_tree.add("<Empty>")
+		return
+	for x in dir:
+		if type(x) is list: # directory
+			create_tree(tmp_tree, x)
+		else: # directory/file name
+			tmp_tree = curr_tree.add(x)
 
-for x in dirs_and_files:
-	if type(x) == list:
-		if len(x) == 0: # if we encounter an empty directory
-			temp_tree.add("<Empty>")
-			continue
-		for y in x: # iterate over directory contents
-			if type(y) == list:
-				if len(y) == 0: # if we encounter an empty directory in a directory
-					temp_tree2.add("<Empty>")
-					continue
-				for z in y: # iterate over directory contents in directory
-					if not is_file(z): # we will not create any more directories, so we just skip over if it is not a file
-						continue
-					temp_tree2.add(z)
-			else: # directory in directory in root
-				temp_tree2 = temp_tree.add(y)
-	else: # directory in root
-		temp_tree = tree.add(x)
+create_tree(tree, dirs_and_files)
 
 print(tree)
 
 # ----------------- Bonus section ----------------------
 
-filter = re.compile("<Regex here>")
+filter = re.compile(r"(py|txt|csv)\b") # remove whichever file extension we don't want
+									   # filter = re.compile(r"(py|txt|csv)\b")
 
 filtered_tree = Tree("Filtered tree")
 
-"""
-***************************************************
-Code for the bonus task goes here...
-***************************************************
-"""
+def has_file_extension(n) -> bool:
+	res = filter.findall(n)
+	if len(res) > 0:
+		return True
+	return False
+
+def create_filtered_tree(curr_tree, dir) -> None:
+	if len(dir) is 0:
+		curr_tree.add("<Empty>")
+		return
+	for x in dir:
+		if type(x) is list: # directory
+			create_tree(tmp_tree, x)
+		else: # directory/file name
+			tmp_tree = curr_tree.add(x)
+
+create_tree(tree, dirs_and_files)
 
 print(filtered_tree)
