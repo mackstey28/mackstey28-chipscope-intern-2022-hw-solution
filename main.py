@@ -61,5 +61,4 @@ def create_filtered_tree(curr_tree, dir_and_file_list) -> None:
 
 create_filtered_tree(filtered_tree, dirs_and_files)
 
-
 print(filtered_tree)
