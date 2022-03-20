@@ -1,5 +1,4 @@
 /mnt/c/users/maxwe/onedrive/documents/chipscope-intern-2022-hw-assignment
-^^^ My directory so I can cd into it ^^^
 
 Creating tree solution:
 
