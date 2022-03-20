@@ -46,7 +46,7 @@ def create_filtered_tree(curr_tree, dir_and_file_list) -> None:
 	has_file = False
 	for x in dir_and_file_list:
 		if type(x) is list: # directory
-			create_tree(tmp_tree, x)
+			create_filtered_tree(tmp_tree, x)
 		else: # directory/file name
 			if "." in x:
 				if has_file_extension(x): # if it is a file extension we want
