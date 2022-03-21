@@ -26,16 +26,13 @@ print(tree)
 
 # ----------------- Bonus section ----------------------
 
-filter = re.compile(r"(.*\.py|.*\.txt|.*\.csv)\b") # remove whichever file extension we don't want
+filter = re.compile(r"(.*\.py|.*\.txt)\b") # remove whichever file extension we don't want
 									      		   # filter = re.compile(r"(.*\.py|.*\.txt|.*\.csv)\b")
 
 filtered_tree = Tree("Filtered tree")
 
-def has_file_extension(n) -> bool:
-	res = filter.findall(n)
-	if len(res) > 0:
-		return True
-	return False
+def has_file_extension(name) -> bool:
+   return filter.match(name) != None
 
 tmp_tree = None
 
